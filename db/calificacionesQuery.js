@@ -1,14 +1,14 @@
 import {config} from '../config.js';
 
 /**
- * Carga la lista de libros
+ * Carga la lista de los calificaciones
  */
-const listarTodosLibrosQuery = () => {
+const listarTodoscalificacionesQuery = () => {
     // Una promesa es una forma de que siempre se devuelva un resultado al quien llama (sea error o éxito)
     // Si la consulta no genera error, entonces resuelve/cumple la promesa con el resultado
     // Si hay algun error entonces rechaza la consulta e informa la razón 
     return new Promise((resolve, reject) => {
-        config.query('SELECT * FROM libros', (err, filas) => {
+        config.query('SELECT * FROM calificaciones', (err, filas) => {
             // Si genera error, mostramos en la consola que es lo que falla
             if (err) {
                 console.log(err);
@@ -22,11 +22,11 @@ const listarTodosLibrosQuery = () => {
 };
 
 /**
- * Buscar un libro por su ID (llave primaria)
+ * Buscar un calificaciones por su ID (llave primaria)
  */
-const listarLibroPorIdQuery = (id) => {
+const listarcalificacionesPorIdQuery = (id_calificacion) => {
     return new Promise((resolve, reject) => {
-        config.query('SELECT * FROM libros WHERE id = ? LIMIT 1', [id], (err, filas) => {
+        config.query('SELECT * FROM calificaciones WHERE id_calificacion = ? LIMIT 1', [id_calificacion], (err, filas) => {
             if (err) {
                 console.log(err);
                 reject(err);
@@ -39,13 +39,13 @@ const listarLibroPorIdQuery = (id) => {
 
 
 /**
- * Guardar un nuevo libro
+ * Guardar calificaciones
  */
-const crearLibroQuery = async (libro) => {
-    const { nombre, copias, estante } = libro;
+const crearcalificacionesQuery = async (calificaciones) => {
+    const { id_calificacion, calificacion } = calificaciones;
     return new Promise((resolve, reject) => {
-        const sql = 'INSERT INTO libros (nombre, copias, estante) VALUES (?, ?, ?)';
-        config.query(sql, [nombre, copias, estante], (err, resultado) => {
+        const sql = 'INSERT INTO calificaciones (nombres) VALUES (?)';
+        config.query(sql, [id_calificacion, calificacion], (err, resultado) => {
             if (err) {
                 reject(err);
             } else {
@@ -56,13 +56,13 @@ const crearLibroQuery = async (libro) => {
 };
 
 /**
- * Actualizar un libro por su ID
+ * Actualizar un calificaciones por su ID
  */
-const actualizarLibroQuery = (id, libro) => {
-    const { nombre, copias, estante } = libro;
+const actualizarcalificacionesQuery = (id_calificacion, calificaciones) => {
+    const { nombres } = calificaciones;
     return new Promise((resolve, reject) => {
-        const sql = 'UPDATE libros SET nombre = ?, copias = ?, estante = ? WHERE id = ?';
-        config.query(sql, [nombre, copias, estante, id], (err, resultado) => {
+        const sql = 'UPDATE calificaciones SET nombres = ?, WHERE id_calificacion = ?';
+        config.query(sql, [nombres, id_calificacion], (err, resultado) => {
             if (err) {
                 reject(err);
             } else {
@@ -73,12 +73,12 @@ const actualizarLibroQuery = (id, libro) => {
 };
 
 /**
- * Eliminar un libro por su ID
+ * Eliminar un calificaciones por su ID
  */
-const eliminarLibroQuery = (id) => {
+const eliminarcalificacionesQuery = (id_calificacion) => {
     return new Promise((resolve, reject) => {
-        const sql = 'DELETE FROM libros WHERE id = ?';
-        config.query(sql, [id], (err, resultado) => {
+        const sql = 'DELETE FROM calificaciones WHERE id_calificacion = ?';
+        config.query(sql, [id_calificacion], (err, resultado) => {
             if (err) {
                 reject(err);
             } else {
@@ -90,9 +90,9 @@ const eliminarLibroQuery = (id) => {
 
 // Exportar todas las funciones definidas en este archivo
 export {
-    listarTodosLibrosQuery,
-    listarLibroPorIdQuery,
-    crearLibroQuery,
-    actualizarLibroQuery,
-    eliminarLibroQuery   
+    listarTodoscalificacionesQuery,
+    listarcalificacionesPorIdQuery,
+    crearcalificacionesQuery,
+    actualizarcalificacionesQuery,
+    eliminarcalificacionesQuery   
 }
