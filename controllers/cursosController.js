@@ -46,7 +46,7 @@ import {
     try {
         const datoscursos = req.body;
         const resultado = await crearcursosQuery(datoscursos);
-        res.json({ mensaje: 'cursos creado con éxito', id_curso: resultado.insertId });
+        res.json({ mensaje: 'curso creado con éxito', id_curso: resultado.insertId });
     } catch (error) {
         res.status(500).send(error);
     }
